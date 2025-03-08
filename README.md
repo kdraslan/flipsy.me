@@ -1,9 +1,55 @@
 # Flipsy
-An image converter using **Typescript** and **React**.
+A modern, browser-based image conversion tool built with TypeScript and React. It allows users to quickly convert images between different formats without needing to install any software.
+___
+
+<p align="center">
+  <img src="logo.svg" alt="Flipsy Logo" width="200" />
+</p>
+
+---
+
+### Features
+
+- Convert images between common formats (JPEG, PNG, WebP, GIF, BMP)
+- Process images directly in the browser (no server uploads required)
+- Intuitive and responsive user interface
+- Secure - your images never leave your computer
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14.0.0 or higher)
+- npm (v6.14.0 or higher)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/flipsy.me.git
+   cd flipsy.me
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## How to Use
+
+1. Drag and drop image files onto the dropzone or click to select files
+2. Select your desired output format
+3. Click "Convert" to transform your image
+4. Download the converted file
 
 ## Available Scripts
-
-In the project directory, you can run:
 
 ### `npm start`
 
@@ -26,14 +72,25 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `npm run deploy`
 
-### `npm run eject`
+Deploys the built application to Firebase hosting.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Live Demo
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Visit [flipsy.me](https://flipsy.me) to try the application online.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Technology Stack
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **Frontend**: React, TypeScript
+- **Styling**: CSS
+- **Hosting**: Firebase
+- **Build Tools**: Create React App
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
