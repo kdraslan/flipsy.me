@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import imageCompression from 'browser-image-compression';
 import { saveAs } from 'file-saver';
 import './App.css';
+import TextAnimation from './TextAnimation';
 
 interface ImageData {
   id: string;
@@ -168,7 +169,7 @@ const App: React.FC = () => {
   return (
       <div className="app-container">
         <header>
-          <h1>Flipsy.me</h1>
+          <TextAnimation />
           <p>Convert your images between different formats</p>
         </header>
 
