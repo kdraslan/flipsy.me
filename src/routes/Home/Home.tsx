@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import imageCompression from 'browser-image-compression';
 import { saveAs } from 'file-saver';
-import './App.css';
-import TextAnimation from './TextAnimation';
+import styles from './Home.module.css';
+import Logo from '../../components/Logo/Logo';
 
 interface ImageData {
   id: string;
@@ -13,7 +12,7 @@ interface ImageData {
   dataUrl: string;
 }
 
-const App: React.FC = () => {
+const Home: React.FC = () => {
   const [images, setImages] = useState<ImageData[]>([]);
   const [selectedImage, setSelectedImage] = useState<ImageData | null>(null);
   const [targetFormat, setTargetFormat] = useState<string>('image/jpeg');
@@ -167,15 +166,14 @@ const App: React.FC = () => {
   };
 
   return (
-      <div className="app-container">
-        <header>
-          <TextAnimation />
-          <p>Convert your images between different formats</p>
+      <div className={styles.appContainer}>
+        <header className={styles.header}>
+          <Logo />
         </header>
 
         <main>
-          <div className="dropzone-container">
-            <div {...getRootProps({ className: `dropzone ${isDragActive ? 'active' : ''}` })}>
+          <div className={styles.dropzoneContainer}>
+            <div {...getRootProps({ className: `${styles.dropzone} ${isDragActive ? styles.dropzoneActive : ''}` })}>
               <input {...getInputProps()} />
               {isDragActive ? (
                   <p>Drop the images here...</p>
@@ -186,22 +184,22 @@ const App: React.FC = () => {
           </div>
 
           {images.length > 0 && (
-              <div className="image-gallery">
+              <div className={styles.imageGallery}>
                 <h2>Your Images ({images.length})</h2>
-                <div className="images-list">
+                <div className={styles.imagesList}>
                   {images.map((img) => (
                       <div
                           key={img.id}
-                          className={`image-item ${selectedImage?.id === img.id ? 'selected' : ''}`}
+                          className={`${styles.imageItem} ${selectedImage?.id === img.id ? styles.selectedImage : ''}`}
                           onClick={() => setSelectedImage(img)}
                       >
                         <img src={img.dataUrl} alt={img.name} />
-                        <div className="image-details">
+                        <div className={styles.imageDetails}>
                           <p>{img.name}</p>
                           <p>{getFormatName(img.originalFormat)} · {formatSize(img.size)}</p>
                         </div>
                         <button
-                            className="remove-btn"
+                            className={styles.removeBtn}
                             onClick={(e) => {
                               e.stopPropagation();
                               removeImage(img.id);
@@ -212,24 +210,24 @@ const App: React.FC = () => {
                       </div>
                   ))}
                 </div>
-                <button className="clear-btn" onClick={clearAllImages}>Clear All</button>
+                <button className={styles.clearBtn} onClick={clearAllImages}>Clear All</button>
               </div>
           )}
 
           {selectedImage && (
-              <div className="converter-panel">
+              <div className={styles.converterPanel}>
                 <h2>Convert Image</h2>
-                <div className="selected-image-preview">
+                <div className={styles.selectedImagePreview}>
                   <img src={selectedImage.dataUrl} alt={selectedImage.name} />
-                  <div className="image-info">
+                  <div className={styles.imageInfo}>
                     <p><strong>Name:</strong> {selectedImage.name}</p>
                     <p><strong>Format:</strong> {getFormatName(selectedImage.originalFormat)}</p>
                     <p><strong>Size:</strong> {formatSize(selectedImage.size)}</p>
                   </div>
                 </div>
 
-                <div className="conversion-controls">
-                  <div className="format-selector">
+                <div className={styles.conversionControls}>
+                  <div className={styles.formatSelector}>
                     <label htmlFor="format-select">Convert to:</label>
                     <select
                         id="format-select"
@@ -245,7 +243,7 @@ const App: React.FC = () => {
                   </div>
 
                   <button
-                      className="convert-btn"
+                      className={styles.convertBtn}
                       onClick={convertImage}
                       disabled={isConverting}
                   >
@@ -256,11 +254,11 @@ const App: React.FC = () => {
           )}
         </main>
 
-        <footer>
+        <footer className={styles.footer}>
           <p>&copy; {new Date().getFullYear()} Flipsy.me - Online Image Converter</p>
         </footer>
       </div>
   );
 };
 
-export default App;
+export default Home;

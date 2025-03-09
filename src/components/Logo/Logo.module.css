@@ -1,0 +1,49 @@
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  width: 100%;
+  overflow: visible;
+}
+
+.svgElement {
+  max-width: 50%;
+  height: auto;
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  stroke-linecap: round;
+  stroke-miterlimit: 1.5;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.animatePullRelease {
+  animation: pullAndRelease .8s ease-out forwards;
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+
+@keyframes pullAndRelease {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(30deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  40% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(-6deg);
+  }
+  80% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

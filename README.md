@@ -3,7 +3,7 @@ A modern, browser-based image conversion tool built with TypeScript and React. I
 ___
 
 <p align="center">
-  <img src="logo.svg" alt="Flipsy Logo" width="300" />
+  <img src="assets/logo.svg" alt="Flipsy Logo" width="350" />
 </p>
 
 ---
