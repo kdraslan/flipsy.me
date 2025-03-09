@@ -3,7 +3,7 @@ A modern, browser-based image conversion tool built with TypeScript and React. I
 ___
 
 <p align="center">
-  <img src="logo.svg" alt="Flipsy Logo" width="200" />
+  <img src="logo.svg" alt="Flipsy Logo" width="300" />
 </p>
 
 ---
@@ -26,7 +26,7 @@ ___
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/flipsy.me.git
+   git clone https://github.com/kdraslan/flipsy.me.git
    cd flipsy.me
    ```
 
@@ -39,8 +39,6 @@ ___
    ```bash
    npm start
    ```
-
-4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## How to Use
 
@@ -85,12 +83,11 @@ Visit [flipsy.me](https://flipsy.me) to try the application online.
 - **Frontend**: React, TypeScript
 - **Styling**: CSS
 - **Hosting**: Firebase
-- **Build Tools**: Create React App
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to submit a PR.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License.

@@ -4,102 +4,39 @@
   align-items: center;
   margin: 2rem 0;
   width: 100%;
-  overflow: visible; /* Prevent clipping */
+  overflow: visible;
 }
 
-.text-animation {
-  max-width: 50%; /* Make SVG 50% smaller */
+svg {
+  max-width: 50%;
   height: auto;
   fill-rule: evenodd;
   clip-rule: evenodd;
   stroke-linecap: round;
   stroke-miterlimit: 1.5;
-  margin: 0 auto; /* Center horizontally */
-  overflow: visible; /* Prevent clipping */
+  margin: 0 auto;
+  overflow: visible;
 }
 
-/* Specific styles for the path that will be animated */
-.text-animation-path {
-  fill: transparent;
-  stroke: rgb(1, 175, 171);
-  stroke-width: 50px; /* Keep original stroke width */
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  animation: write 0.5s ease-out forwards;
+/* Animation class applied via JavaScript */
+.animate-stretch {
+  animation: simpleStretch 0.5s ease-out forwards;
+  transform-box: fill-box; /* Use the path's bounding box for calculations */
+  transform-origin: left; /* Left edge as origin within the path's own box */
 }
 
-/* Animation for the 'S' path */
-@keyframes write {
-  from {
-    stroke-dashoffset: 1000;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* ME letters animation */
-.me-letter {
-  opacity: 0; /* Initially hidden */
-  overflow: visible; /* Prevent clipping */
-}
-
-/* M letter animation - start immediately, no delay */
-.animate-m {
-  animation: slideM 0.8s ease-out 0s forwards;
-  transform-origin: center center; /* Ensure centered scaling */
-}
-
-/* E letter animation - start immediately, no delay */
-.animate-e {
-  animation: slideE 0.8s ease-out 0s forwards;
-  transform-origin: center center; /* Ensure centered scaling */
-}
-
-/* Animation for M letter - strictly horizontal */
-@keyframes slideM {
+/* Simple pull and release animation */
+@keyframes simpleStretch {
   0% {
-    transform: translateX(300px) scaleX(1) scaleY(1);
-    opacity: 0;
-  }
-  40% {
-    transform: translateX(100px) scaleX(1.2) scaleY(0.8);
-    opacity: 1;
+    transform: scaleX(1);
   }
   60% {
-    transform: translateX(50px) scaleX(0.8) scaleY(1.1);
-    opacity: 1;
+    transform: scaleX(1.6);
   }
   80% {
-    transform: translateX(0) scaleX(1.05) scaleY(0.95);
-    opacity: 1;
+    transform: scaleX(0.8);
   }
   100% {
-    transform: translateX(0) scaleX(1) scaleY(1);
-    opacity: 1;
-  }
-}
-
-/* Animation for E letter - strictly horizontal */
-@keyframes slideE {
-  0% {
-    transform: translateX(300px) scaleX(1) scaleY(1);
-    opacity: 0;
-  }
-  40% {
-    transform: translateX(80px) scaleX(1.2) scaleY(0.8);
-    opacity: 1;
-  }
-  60% {
-    transform: translateX(40px) scaleX(0.8) scaleY(1.1);
-    opacity: 1;
-  }
-  80% {
-    transform: translateX(0) scaleX(1.05) scaleY(0.95);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(0) scaleX(1) scaleY(1);
-    opacity: 1;
+    transform: scaleX(1);
   }
 }
