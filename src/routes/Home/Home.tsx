@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { saveAs } from 'file-saver';
 import styles from './Home.module.css';
 import Logo from '../../components/Logo/Logo';
+import Tracking from '../../components/Tracking/Tracking';
 
 interface ImageData {
   id: string;
@@ -170,6 +171,8 @@ const Home: React.FC = () => {
         <header className={styles.header}>
           <Logo />
         </header>
+
+        <Tracking />
 
         <main>
           <div className={styles.dropzoneContainer}>

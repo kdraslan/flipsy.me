@@ -1,7 +1,48 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Home from './Home';
+
+jest.mock('../../firebase/services', () => ({
+  analyticsService: {
+    setUserId: jest.fn(),
+    setUserProperties: jest.fn(),
+    logSearch: jest.fn(),
+    logEvent: jest.fn(),
+    logPageView: jest.fn()
+  },
+  performanceService: {
+    startTrace: jest.fn(),
+    stopTrace: jest.fn(),
+    setAttribute: jest.fn(),
+    putMetric: jest.fn(),
+    componentRenderTrace: jest.fn().mockReturnValue({
+      start: jest.fn(),
+      stop: jest.fn(),
+      setAttribute: jest.fn(),
+      putMetric: jest.fn()
+    })
+  }
+}));
+
+jest.mock('../../firebase/hooks', () => ({
+  usePageTracking: jest.fn(),
+  useButtonTracking: jest.fn(() => jest.fn()),
+  useErrorTracking: jest.fn(() => jest.fn()),
+  useComponentPerformance: jest.fn(() => ({
+    measureOperation: jest.fn(async (name, fn) => await fn())
+  }))
+}));
+
+jest.mock('../../firebase/config', () => ({
+  app: {
+    options: {
+      appId: 'test-app-id'
+    }
+  },
+  initializeAnalytics: jest.fn().mockResolvedValue({}),
+  initializePerformance: jest.fn().mockResolvedValue({})
+}));
 
 // Mock the dependencies
 jest.mock('react-dropzone', () => ({
