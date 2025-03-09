@@ -5,13 +5,22 @@ const TextAnimation = () => {
     const animatedElement = useRef<SVGPathElement | null>(null);
 
     useEffect(() => {
-
-        // Apply animation class after a short delay to ensure page is loaded
-        setTimeout(() => {
+        // Apply animation when component mounts
+        const applyAnimation = () => {
             if (animatedElement.current) {
-                animatedElement.current.classList.add('animate-stretch');
+                animatedElement.current.classList.add('animate-pull-release');
             }
-        }, 300);
+        };
+
+        // Small delay to ensure rendering is complete
+        const timer = setTimeout(applyAnimation, 300);
+
+        return () => {
+            clearTimeout(timer);
+            if (animatedElement.current) {
+                animatedElement.current.classList.remove('animate-pull-release');
+            }
+        };
     }, []);
 
     return (
