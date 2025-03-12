@@ -3,7 +3,7 @@ A modern, browser-based image conversion tool built with TypeScript and React. I
 ___
 
 <p align="center">
-  <img src="assets/logo.svg" alt="Flipsy Logo" width="350" />
+  <img src="src/assets/images/logo.svg" alt="Flipsy Logo" width="350" />
 </p>
 
 ---
@@ -19,8 +19,8 @@ ___
 
 ### Prerequisites
 
-- Node.js (v14.0.0 or higher)
-- npm (v6.14.0 or higher)
+- Node.js (v16.0.0 or higher)
+- npm (v8.0.0 or higher)
 
 ### Installation
 
@@ -37,7 +37,7 @@ ___
 
 3. Start the development server:
    ```bash
-   npm start
+   npm run dev
    ```
 
 ## How to Use
@@ -49,30 +49,38 @@ ___
 
 ## Available Scripts
 
-### `npm start`
+### `npm run dev` or `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `dist` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run preview`
 
-### `npm run deploy`
+Previews the built application locally before deployment.
 
-Deploys the built application to Firebase hosting.
+### `npm run lint`
+
+Runs ESLint to check for code quality issues.
+
+### `npm run lint:fix`
+
+Runs ESLint and attempts to automatically fix issues.
+
+### `npm run format`
+
+Formats your code using Prettier.
+
+### `npm run sort-package`
+
+Sorts the package.json file for consistency.
 
 ## Live Demo
 
@@ -81,12 +89,34 @@ Visit [flipsy.me](https://flipsy.me) to try the application online.
 ## Technology Stack
 
 - **Frontend**: React, TypeScript
+- **Build Tool**: Vite
 - **Styling**: CSS
+- **Linting**: ESLint with Prettier integration
 - **Hosting**: Firebase
 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a PR.
+
+### Code Style
+
+This project uses ESLint and Prettier to maintain code quality and consistency:
+
+- Run `npm run lint` to check for code issues
+- Run `npm run format` to format your code before committing
+- Run `npm run lint:fix` to automatically fix ESLint issues
+
+## Browser Support
+
+### Production
+- Last 2 versions of major browsers
+- Browsers with >1% market share
+- No support for IE 11
+
+### Development
+- Latest Chrome
+- Latest Firefox
+- Latest Safari
 
 ## License
 
