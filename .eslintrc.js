@@ -163,8 +163,19 @@ module.exports = {
     'sort-keys-fix/sort-keys-fix': ['error', 'asc', { caseSensitive: false, natural: true }],
   },
   settings: {
+    'import/resolver': {
+      alias: {
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+        map: [
+          ['@', './src']
+        ]
+      },
+      typescript: {
+        alwaysTryTypes: true,
+      }
+    },
     react: {
       version: 'detect',
-    },
+    }
   },
 };

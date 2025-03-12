@@ -1,7 +1,7 @@
 import '@/firebase/config'; // Just importing this will initialize Firebase
 
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 
 import { analyticsService, performanceService } from '@/firebase/services';
 import Home from '@/routes/Home/Home';
@@ -19,7 +19,7 @@ window.addEventListener('error', (event) => {
 const measureAppInit = async () => {
   await performanceService.startTrace('app_initialization');
 
-  const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+  const root = createRoot(document.getElementById('root') as HTMLElement);
 
   root.render(
     <React.StrictMode>
