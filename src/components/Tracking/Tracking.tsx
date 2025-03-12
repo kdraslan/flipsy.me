@@ -155,10 +155,10 @@ const Tracking: React.FC = () => {
         <h2 className={styles.sectionTitle}>Search Tracking</h2>
         <div className={styles.inputContainer}>
           <input
-            type="text"
+            type='text'
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Enter search query"
+            placeholder='Enter search query'
             className={styles.input}
           />
           <button className={styles.button} onClick={performSearch}>
@@ -183,10 +183,10 @@ const Tracking: React.FC = () => {
         <h2 className={styles.sectionTitle}>Custom Event Tracking</h2>
         <div className={styles.inputContainer}>
           <input
-            type="text"
+            type='text'
             value={customEventData}
             onChange={(e) => setCustomEventData(e.target.value)}
-            placeholder="Enter custom event data"
+            placeholder='Enter custom event data'
             className={styles.input}
           />
           <button className={styles.button} onClick={logCustomEvent}>

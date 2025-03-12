@@ -62,7 +62,7 @@ jest.mock('file-saver', () => ({
 // Mock the Logo component
 jest.mock('@components/Logo/Logo', () => {
   return function MockLogo() {
-    return <div data-testid="mock-logo">Logo</div>;
+    return <div data-testid='mock-logo'>Logo</div>;
   };
 });
 

@@ -105,18 +105,6 @@ module.exports = {
       },
     ],
 
-    // Prettier
-    'prettier/prettier': [
-      'error',
-      {
-        printWidth: 100,
-        semi: true,
-        singleQuote: true,
-        tabWidth: 2,
-        trailingComma: 'es5',
-      },
-    ],
-
     // React
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',

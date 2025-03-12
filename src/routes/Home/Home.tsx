@@ -254,17 +254,17 @@ const Home: React.FC = () => {
 
             <div className={styles.conversionControls}>
               <div className={styles.formatSelector}>
-                <label htmlFor="format-select">Convert to:</label>
+                <label htmlFor='format-select'>Convert to:</label>
                 <select
-                  id="format-select"
+                  id='format-select'
                   value={targetFormat}
                   onChange={(e) => setTargetFormat(e.target.value)}
                 >
-                  <option value="image/jpeg">JPEG</option>
-                  <option value="image/png">PNG</option>
-                  <option value="image/webp">WebP</option>
-                  <option value="image/gif">GIF</option>
-                  <option value="image/bmp">BMP</option>
+                  <option value='image/jpeg'>JPEG</option>
+                  <option value='image/png'>PNG</option>
+                  <option value='image/webp'>WebP</option>
+                  <option value='image/gif'>GIF</option>
+                  <option value='image/bmp'>BMP</option>
                 </select>
               </div>
 
