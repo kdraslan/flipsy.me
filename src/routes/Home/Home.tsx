@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useDropzone } from 'react-dropzone';
 import { saveAs } from 'file-saver';
+import React, { useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+
+import Logo from '@/components/Logo/Logo';
+import Tracking from '@/components/Tracking/Tracking';
+
 import styles from './Home.module.css';
-import Logo from '../../components/Logo/Logo';
-import Tracking from '../../components/Tracking/Tracking';
 
 interface ImageData {
   id: string;
@@ -38,21 +40,21 @@ const Home: React.FC = () => {
 
   const onDrop = async (acceptedFiles: File[]) => {
     const newImages = await Promise.all(
-        acceptedFiles.map(async (file) => {
-          // Get the file extension/format
-          const format = file.type;
+      acceptedFiles.map(async (file) => {
+        // Get the file extension/format
+        const format = file.type;
 
-          // Create a data URL for the image
-          const dataUrl = await readFileAsDataURL(file);
+        // Create a data URL for the image
+        const dataUrl = await readFileAsDataURL(file);
 
-          return {
-            id: generateId(),
-            name: file.name,
-            originalFormat: format,
-            size: file.size,
-            dataUrl,
-          };
-        })
+        return {
+          dataUrl,
+          id: generateId(),
+          name: file.name,
+          originalFormat: format,
+          size: file.size,
+        };
+      })
     );
 
     setImages((prevImages) => [...prevImages, ...newImages]);
@@ -62,10 +64,10 @@ const Home: React.FC = () => {
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
     accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp', '.bmp', '.tiff']
-    }
+      'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp', '.bmp', '.tiff'],
+    },
+    onDrop,
   });
 
   const readFileAsDataURL = (file: File): Promise<string> => {
@@ -139,7 +141,7 @@ const Home: React.FC = () => {
   const removeImage = (id: string) => {
     setImages((prevImages) => prevImages.filter((img) => img.id !== id));
     if (selectedImage?.id === id) {
-      setSelectedImage(images.length > 1 ? images.find(img => img.id !== id) || null : null);
+      setSelectedImage(images.length > 1 ? images.find((img) => img.id !== id) || null : null);
     }
   };
 
@@ -156,111 +158,128 @@ const Home: React.FC = () => {
 
   const getFormatName = (mimeType: string): string => {
     switch (mimeType) {
-      case 'image/jpeg': return 'JPEG';
-      case 'image/png': return 'PNG';
-      case 'image/webp': return 'WebP';
-      case 'image/gif': return 'GIF';
-      case 'image/bmp': return 'BMP';
-      case 'image/tiff': return 'TIFF';
-      default: return mimeType.split('/')[1].toUpperCase();
+      case 'image/jpeg':
+        return 'JPEG';
+      case 'image/png':
+        return 'PNG';
+      case 'image/webp':
+        return 'WebP';
+      case 'image/gif':
+        return 'GIF';
+      case 'image/bmp':
+        return 'BMP';
+      case 'image/tiff':
+        return 'TIFF';
+      default:
+        return mimeType.split('/')[1].toUpperCase();
     }
   };
 
   return (
-      <div className={styles.appContainer}>
-        <header className={styles.header}>
-          <Logo />
-        </header>
+    <div className={styles.appContainer}>
+      <header className={styles.header}>
+        <Logo />
+      </header>
 
-        <Tracking />
+      <Tracking />
 
-        <main>
-          <div className={styles.dropzoneContainer}>
-            <div {...getRootProps({ className: `${styles.dropzone} ${isDragActive ? styles.dropzoneActive : ''}` })}>
-              <input {...getInputProps()} />
-              {isDragActive ? (
-                  <p>Drop the images here...</p>
-              ) : (
-                  <p>Drag & drop images here, or click to select files</p>
-              )}
-            </div>
+      <main>
+        <div className={styles.dropzoneContainer}>
+          <div
+            {...getRootProps({
+              className: `${styles.dropzone} ${isDragActive ? styles.dropzoneActive : ''}`,
+            })}
+          >
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p>Drop the images here...</p>
+            ) : (
+              <p>Drag & drop images here, or click to select files</p>
+            )}
           </div>
+        </div>
 
-          {images.length > 0 && (
-              <div className={styles.imageGallery}>
-                <h2>Your Images ({images.length})</h2>
-                <div className={styles.imagesList}>
-                  {images.map((img) => (
-                      <div
-                          key={img.id}
-                          className={`${styles.imageItem} ${selectedImage?.id === img.id ? styles.selectedImage : ''}`}
-                          onClick={() => setSelectedImage(img)}
-                      >
-                        <img src={img.dataUrl} alt={img.name} />
-                        <div className={styles.imageDetails}>
-                          <p>{img.name}</p>
-                          <p>{getFormatName(img.originalFormat)} · {formatSize(img.size)}</p>
-                        </div>
-                        <button
-                            className={styles.removeBtn}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              removeImage(img.id);
-                            }}
-                        >
-                          ×
-                        </button>
-                      </div>
-                  ))}
-                </div>
-                <button className={styles.clearBtn} onClick={clearAllImages}>Clear All</button>
-              </div>
-          )}
-
-          {selectedImage && (
-              <div className={styles.converterPanel}>
-                <h2>Convert Image</h2>
-                <div className={styles.selectedImagePreview}>
-                  <img src={selectedImage.dataUrl} alt={selectedImage.name} />
-                  <div className={styles.imageInfo}>
-                    <p><strong>Name:</strong> {selectedImage.name}</p>
-                    <p><strong>Format:</strong> {getFormatName(selectedImage.originalFormat)}</p>
-                    <p><strong>Size:</strong> {formatSize(selectedImage.size)}</p>
+        {images.length > 0 && (
+          <div className={styles.imageGallery}>
+            <h2>Your Images ({images.length})</h2>
+            <div className={styles.imagesList}>
+              {images.map((img) => (
+                <div
+                  key={img.id}
+                  className={`${styles.imageItem} ${selectedImage?.id === img.id ? styles.selectedImage : ''}`}
+                  onClick={() => setSelectedImage(img)}
+                >
+                  <img src={img.dataUrl} alt={img.name} />
+                  <div className={styles.imageDetails}>
+                    <p>{img.name}</p>
+                    <p>
+                      {getFormatName(img.originalFormat)} · {formatSize(img.size)}
+                    </p>
                   </div>
-                </div>
-
-                <div className={styles.conversionControls}>
-                  <div className={styles.formatSelector}>
-                    <label htmlFor="format-select">Convert to:</label>
-                    <select
-                        id="format-select"
-                        value={targetFormat}
-                        onChange={(e) => setTargetFormat(e.target.value)}
-                    >
-                      <option value="image/jpeg">JPEG</option>
-                      <option value="image/png">PNG</option>
-                      <option value="image/webp">WebP</option>
-                      <option value="image/gif">GIF</option>
-                      <option value="image/bmp">BMP</option>
-                    </select>
-                  </div>
-
                   <button
-                      className={styles.convertBtn}
-                      onClick={convertImage}
-                      disabled={isConverting}
+                    className={styles.removeBtn}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeImage(img.id);
+                    }}
                   >
-                    {isConverting ? 'Converting...' : 'Convert & Download'}
+                    ×
                   </button>
                 </div>
-              </div>
-          )}
-        </main>
+              ))}
+            </div>
+            <button className={styles.clearBtn} onClick={clearAllImages}>
+              Clear All
+            </button>
+          </div>
+        )}
 
-        <footer className={styles.footer}>
-          <p>&copy; {new Date().getFullYear()} Flipsy.me - Online Image Converter</p>
-        </footer>
-      </div>
+        {selectedImage && (
+          <div className={styles.converterPanel}>
+            <h2>Convert Image</h2>
+            <div className={styles.selectedImagePreview}>
+              <img src={selectedImage.dataUrl} alt={selectedImage.name} />
+              <div className={styles.imageInfo}>
+                <p>
+                  <strong>Name:</strong> {selectedImage.name}
+                </p>
+                <p>
+                  <strong>Format:</strong> {getFormatName(selectedImage.originalFormat)}
+                </p>
+                <p>
+                  <strong>Size:</strong> {formatSize(selectedImage.size)}
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.conversionControls}>
+              <div className={styles.formatSelector}>
+                <label htmlFor="format-select">Convert to:</label>
+                <select
+                  id="format-select"
+                  value={targetFormat}
+                  onChange={(e) => setTargetFormat(e.target.value)}
+                >
+                  <option value="image/jpeg">JPEG</option>
+                  <option value="image/png">PNG</option>
+                  <option value="image/webp">WebP</option>
+                  <option value="image/gif">GIF</option>
+                  <option value="image/bmp">BMP</option>
+                </select>
+              </div>
+
+              <button className={styles.convertBtn} onClick={convertImage} disabled={isConverting}>
+                {isConverting ? 'Converting...' : 'Convert & Download'}
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
+
+      <footer className={styles.footer}>
+        <p>&copy; {new Date().getFullYear()} Flipsy.me - Online Image Converter</p>
+      </footer>
+    </div>
   );
 };
 

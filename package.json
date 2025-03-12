@@ -2,44 +2,22 @@
   "name": "flipsy",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@firebase/analytics": "^0.10.12",
-    "@firebase/performance": "^0.7.1",
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
-    "@testing-library/user-event": "14.6.1",
-    "@types/jest": "29.5.14",
-    "@types/node": "22.13.10",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "browser-image-compression": "^2.0.2",
-    "file-saver": "^2.0.5",
-    "firebase": "^11.4.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-dropzone": "^14.3.8",
-    "react-scripts": "5.0.1",
-    "typescript": "5.8.2",
-    "web-vitals": "4.2.4"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "build": "vite build",
+    "dev": "vite",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
+    "preview": "vite preview",
+    "sort-package": "npx sort-package-json",
+    "start": "vite"
   },
   "browserslist": {
     "production": [
-      ">0.2%",
+      "last 2 versions",
+      ">1%",
       "not dead",
-      "not op_mini all"
+      "not IE 11"
     ],
     "development": [
       "last 1 chrome version",
@@ -47,12 +25,44 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/file-saver": "^2.0.7"
-  },
   "jest": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/build/"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.test.[jt]s?(x)"
+    ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(web-vitals|firebase|@firebase)/)"
+      "node_modules/(?!(web-vitals|firebase)/)"
     ]
+  },
+  "dependencies": {
+    "browser-image-compression": "^2.0.2",
+    "file-saver": "^2.0.5",
+    "firebase": "^11.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.3.8",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/file-saver": "^2.0.7",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.17.24",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
+    "prettier": "^3.0.0",
+    "sort-package-json": "^3.0.0",
+    "typescript": "^5.1.6",
+    "vite": "^6.2.1"
   }
 }

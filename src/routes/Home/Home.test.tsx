@@ -1,64 +1,66 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+
 import Home from './Home';
 
 jest.mock('../../firebase/services', () => ({
   analyticsService: {
+    logEvent: jest.fn(),
+    logPageView: jest.fn(),
+    logSearch: jest.fn(),
     setUserId: jest.fn(),
     setUserProperties: jest.fn(),
-    logSearch: jest.fn(),
-    logEvent: jest.fn(),
-    logPageView: jest.fn()
   },
   performanceService: {
-    startTrace: jest.fn(),
-    stopTrace: jest.fn(),
-    setAttribute: jest.fn(),
-    putMetric: jest.fn(),
     componentRenderTrace: jest.fn().mockReturnValue({
+      putMetric: jest.fn(),
+      setAttribute: jest.fn(),
       start: jest.fn(),
       stop: jest.fn(),
-      setAttribute: jest.fn(),
-      putMetric: jest.fn()
-    })
-  }
+    }),
+    putMetric: jest.fn(),
+    setAttribute: jest.fn(),
+    startTrace: jest.fn(),
+    stopTrace: jest.fn(),
+  },
 }));
 
 jest.mock('../../firebase/hooks', () => ({
-  usePageTracking: jest.fn(),
   useButtonTracking: jest.fn(() => jest.fn()),
-  useErrorTracking: jest.fn(() => jest.fn()),
   useComponentPerformance: jest.fn(() => ({
-    measureOperation: jest.fn(async (name, fn) => await fn())
-  }))
+    measureOperation: jest.fn(async (name, fn) => await fn()),
+  })),
+  useErrorTracking: jest.fn(() => jest.fn()),
+  usePageTracking: jest.fn(),
 }));
 
 jest.mock('../../firebase/config', () => ({
   app: {
     options: {
-      appId: 'test-app-id'
-    }
+      appId: 'test-app-id',
+    },
   },
   initializeAnalytics: jest.fn().mockResolvedValue({}),
-  initializePerformance: jest.fn().mockResolvedValue({})
+  initializePerformance: jest.fn().mockResolvedValue({}),
 }));
 
 // Mock the dependencies
 jest.mock('react-dropzone', () => ({
   useDropzone: () => ({
-    getRootProps: () => ({}),
     getInputProps: () => ({}),
-    isDragActive: false
-  })
+    getRootProps: () => ({}),
+    isDragActive: false,
+  }),
 }));
 
 jest.mock('file-saver', () => ({
-  saveAs: jest.fn()
+  saveAs: jest.fn(),
 }));
 
 // Mock the Logo component
-jest.mock('../../components/Logo/Logo', () => {
+jest.mock('@components/Logo/Logo', () => {
   return function MockLogo() {
     return <div data-testid="mock-logo">Logo</div>;
   };
@@ -68,18 +70,18 @@ jest.mock('../../components/Logo/Logo', () => {
 const localStorageMock = (() => {
   let store: Record<string, string> = {};
   return {
+    clear: jest.fn(() => {
+      store = {};
+    }),
     getItem: jest.fn((key: string) => store[key] || null),
     setItem: jest.fn((key: string, value: string) => {
       store[key] = value.toString();
     }),
-    clear: jest.fn(() => {
-      store = {};
-    })
   };
 })();
 
 Object.defineProperty(window, 'localStorage', {
-  value: localStorageMock
+  value: localStorageMock,
 });
 
 // Mock canvas functionality without directly overriding prototype methods
@@ -88,25 +90,32 @@ beforeAll(() => {
   const originalGetContext = HTMLCanvasElement.prototype.getContext;
 
   // Mock getContext
-  jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(function(this: HTMLCanvasElement, contextId: string) {
+  jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(function (
+    this: HTMLCanvasElement,
+    contextId: string
+  ) {
     if (contextId === '2d') {
       return {
+        clearRect: jest.fn(),
         drawImage: jest.fn(),
         fillRect: jest.fn(),
-        clearRect: jest.fn(),
         getImageData: jest.fn(() => ({
           data: new Uint8ClampedArray(4),
         })),
         putImageData: jest.fn(),
+
         // Add other required methods
       } as unknown as CanvasRenderingContext2D;
     }
+
     // For other context types, return null or mock as needed
     return null;
   });
 
   // Mock toDataURL
-  jest.spyOn(HTMLCanvasElement.prototype, 'toDataURL').mockReturnValue('data:image/jpeg;base64,mockDataUrl');
+  jest
+    .spyOn(HTMLCanvasElement.prototype, 'toDataURL')
+    .mockReturnValue('data:image/jpeg;base64,mockDataUrl');
 });
 
 afterAll(() => {
@@ -141,12 +150,12 @@ describe('Home', () => {
   test('should load images from localStorage on mount', () => {
     const mockImages = [
       {
+        dataUrl: 'data:image/jpeg;base64,/test',
         id: '123',
         name: 'test.jpg',
         originalFormat: 'image/jpeg',
         size: 12345,
-        dataUrl: 'data:image/jpeg;base64,/test'
-      }
+      },
     ];
 
     localStorageMock.getItem.mockReturnValueOnce(JSON.stringify(mockImages));

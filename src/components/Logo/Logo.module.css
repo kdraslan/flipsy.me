@@ -19,7 +19,7 @@
 }
 
 .animatePullRelease {
-  animation: pullAndRelease .8s ease-out forwards;
+  animation: pullAndRelease 0.8s ease-out forwards;
   transform-box: fill-box;
   transform-origin: left center;
 }
