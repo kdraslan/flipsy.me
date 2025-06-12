@@ -35,7 +35,22 @@ ___
    npm install
    ```
 
-3. Start the development server:
+3. Set up Firebase (optional - for analytics):
+   - Create a Firebase project at https://console.firebase.google.com/
+   - Enable Analytics in your Firebase project
+   - Get your Firebase configuration from Project Settings > General > Your apps
+   - Create a `.env` file in the root directory with your Firebase config:
+   ```env
+   VITE_FIREBASE_API_KEY=your_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+   VITE_FIREBASE_PROJECT_ID=your_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+   VITE_FIREBASE_APP_ID=your_app_id
+   VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
+   ```
+
+4. Start the development server:
    ```bash
    npm run dev
    ```
@@ -91,6 +106,7 @@ Visit [flipsy.me](https://flipsy.me) to try the application online.
 - **Frontend**: React, TypeScript
 - **Build Tool**: Vite
 - **Styling**: CSS
+- **Analytics**: Firebase Analytics (optional)
 - **Linting**: ESLint with Prettier integration
 - **Hosting**: Firebase
 

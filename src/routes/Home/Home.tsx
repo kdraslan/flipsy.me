@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import Logo from '@/components/Logo/Logo';
-import Tracking from '@/components/Tracking/Tracking';
+import TrackingDemo from '@/components/TrackingDemo/TrackingDemo';
+import { trackButtonClick, trackError } from '@/firebase/tracking';
 
 import styles from './Home.module.css';
 
@@ -86,6 +87,7 @@ const Home: React.FC = () => {
   const convertImage = async () => {
     if (!selectedImage) return;
 
+    trackButtonClick('convert_image');
     setIsConverting(true);
 
     try {
@@ -118,6 +120,7 @@ const Home: React.FC = () => {
       saveAs(blob, `${selectedImage.name.split('.')[0]}.${formatExt}`);
     } catch (error) {
       console.error('Error converting image:', error);
+      trackError('Image conversion failed', 'convertImage');
       alert('Error converting image. Please try again.');
     } finally {
       setIsConverting(false);
@@ -148,6 +151,7 @@ const Home: React.FC = () => {
   };
 
   const clearAllImages = () => {
+    trackButtonClick('clear_all_images');
     setImages([]);
     setSelectedImage(null);
   };
@@ -183,7 +187,7 @@ const Home: React.FC = () => {
         <Logo />
       </header>
 
-      <Tracking />
+      <TrackingDemo />
 
       <main>
         <div className={styles.dropzoneContainer}>

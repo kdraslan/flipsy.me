@@ -1,28 +1,5 @@
-import { getAnalytics, isSupported as isAnalyticsSupported } from 'firebase/analytics';
+import { Analytics, getAnalytics } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
-import { getPerformance } from 'firebase/performance';
-
-// Validate config to ensure required fields are present
-const validateFirebaseConfig = (config: unknown) => {
-  const requiredFields = [
-    'apiKey',
-    'authDomain',
-    'projectId',
-    'storageBucket',
-    'messagingSenderId',
-    'appId',
-  ];
-  const missingFields = requiredFields.filter((field) => !(config as Record<string, unknown>)[field]);
-
-  if (missingFields.length > 0) {
-    console.error(
-      `Firebase initialization error: Missing required fields: ${missingFields.join(', ')}`
-    );
-    return false;
-  }
-
-  return true;
-};
 
 // Your Firebase configuration
 const firebaseConfig = {
@@ -35,42 +12,16 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
 };
 
-// Initialize Firebase only if the config is valid
-const isValidConfig = validateFirebaseConfig(firebaseConfig);
-const app = isValidConfig ? initializeApp(firebaseConfig) : null;
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
-// Initialize Analytics with support check
-const initializeAnalytics = async () => {
-  if (!app) {
-    console.log('Firebase Analytics initialization skipped due to invalid configuration');
-    return null;
-  }
+// Initialize Analytics
+let analytics: Analytics | null = null;
+try {
+  analytics = getAnalytics(app);
+  console.log('Firebase Analytics initialized successfully');
+} catch (error) {
+  console.warn('Firebase Analytics could not be initialized:', error);
+}
 
-  try {
-    if (await isAnalyticsSupported()) {
-      return getAnalytics(app);
-    }
-    console.log('Firebase Analytics is not supported in this environment');
-    return null;
-  } catch (error) {
-    console.error('Error initializing Firebase Analytics:', error);
-    return null;
-  }
-};
-
-// Initialize Performance with support check
-const initializePerformance = async () => {
-  if (!app) {
-    console.log('Firebase Performance initialization skipped due to invalid configuration');
-    return null;
-  }
-
-  try {
-    return getPerformance(app);
-  } catch (error) {
-    console.error('Error initializing Firebase Performance:', error);
-    return null;
-  }
-};
-
-export { app, initializeAnalytics, initializePerformance };
+export { analytics };
