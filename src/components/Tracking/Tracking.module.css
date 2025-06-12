@@ -1,0 +1,56 @@
+.container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.description {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.buttonContainer {
+  margin-bottom: 20px;
+}
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.primaryButton {
+  background-color: #007bff;
+  color: white;
+  margin-right: 10px;
+}
+
+.dangerButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.note {
+  font-size: 10px;
+  color: #666;
+  margin: 0;
+}

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import Logo from '@/components/Logo/Logo';
-import TrackingDemo from '@/components/TrackingDemo/TrackingDemo';
+import Tracking from '@/components/Tracking/Tracking';
 import { trackButtonClick, trackError } from '@/firebase/tracking';
 
 import styles from './Home.module.css';
@@ -187,7 +187,7 @@ const Home: React.FC = () => {
         <Logo />
       </header>
 
-      <TrackingDemo />
+      <Tracking />
 
       <main>
         <div className={styles.dropzoneContainer}>
