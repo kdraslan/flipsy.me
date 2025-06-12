@@ -34,15 +34,15 @@ export const useErrorTracking = () => {
 
 // Performance hooks
 export const useComponentPerformance = (componentName: string) => {
-  const traceRef = useRef<any>(null);
+  const traceRef = useRef<unknown>(null);
 
   useEffect(() => {
     const startComponentTrace = async () => {
       try {
         traceRef.current = performanceService.componentRenderTrace?.(componentName);
         if (traceRef.current) {
-          await traceRef.current.start?.();
-          await traceRef.current.putMetric?.('mount_started', performance.now());
+          await (traceRef.current as { start?: () => Promise<void> }).start?.();
+          await (traceRef.current as { putMetric?: (name: string, value: number) => Promise<void> }).putMetric?.('mount_started', performance.now());
         }
       } catch (error) {
         console.error(`Error starting performance trace for ${componentName}:`, error);
@@ -55,8 +55,8 @@ export const useComponentPerformance = (componentName: string) => {
       const finishComponentTrace = async () => {
         try {
           if (traceRef.current) {
-            await traceRef.current.putMetric?.('unmount_time', performance.now());
-            await traceRef.current.stop?.();
+            await (traceRef.current as { putMetric?: (name: string, value: number) => Promise<void> }).putMetric?.('unmount_time', performance.now());
+            await (traceRef.current as { stop?: () => Promise<void> }).stop?.();
           }
         } catch (error) {
           console.error(`Error stopping performance trace for ${componentName}:`, error);
@@ -67,7 +67,7 @@ export const useComponentPerformance = (componentName: string) => {
     };
   }, [componentName]);
 
-  const measureOperation = async (operationName: string, operation: () => Promise<any>) => {
+  const measureOperation = async (operationName: string, operation: () => Promise<unknown>) => {
     if (!traceRef.current) return await operation();
 
     const startTime = performance.now();
@@ -76,7 +76,7 @@ export const useComponentPerformance = (componentName: string) => {
     } finally {
       try {
         const duration = performance.now() - startTime;
-        await traceRef.current.putMetric?.(`op_${operationName}`, duration);
+        await (traceRef.current as { putMetric?: (name: string, value: number) => Promise<void> }).putMetric?.(`op_${operationName}`, duration);
       } catch (error) {
         console.error(`Error measuring operation ${operationName}:`, error);
       }

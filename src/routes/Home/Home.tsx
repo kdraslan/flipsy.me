@@ -8,11 +8,11 @@ import Tracking from '@/components/Tracking/Tracking';
 import styles from './Home.module.css';
 
 interface ImageData {
+  dataUrl: string;
   id: string;
   name: string;
   originalFormat: string;
   size: number;
-  dataUrl: string;
 }
 
 const Home: React.FC = () => {
@@ -126,7 +126,9 @@ const Home: React.FC = () => {
 
   const dataURLToBlob = (dataURL: string): Blob => {
     const arr = dataURL.split(',');
-    const mime = arr[0].match(/:(.*?);/)![1];
+    const mimeMatch = arr[0].match(/:(.*?);/);
+    if (!mimeMatch) throw new Error('Invalid data URL format');
+    const mime = mimeMatch[1];
     const bstr = atob(arr[1]);
     let n = bstr.length;
     const u8arr = new Uint8Array(n);

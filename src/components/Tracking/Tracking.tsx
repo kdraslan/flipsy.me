@@ -54,7 +54,7 @@ const Tracking: React.FC = () => {
     });
 
   // Component performance tracking with fallback
-  const { measureOperation = async (_name: string, fn: () => Promise<any>) => await fn() } =
+  const { measureOperation = async (_name: string, fn: () => Promise<unknown>) => await fn() } =
     useComponentPerformance?.('Tracking') || {};
 
   // Tracks user ID for analytics - simulating a user login

@@ -1,45 +1,28 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import {
+  Analytics,
   logEvent,
   setAnalyticsCollectionEnabled,
   setUserId,
   setUserProperties,
 } from 'firebase/analytics';
-import { trace } from 'firebase/performance';
+import { FirebasePerformance, trace } from 'firebase/performance';
 
 import { initializeAnalytics, initializePerformance } from './config';
 
 // Analytics Service
+// eslint-disable-next-line @typescript-eslint/member-ordering
 class AnalyticsService {
-  private analytics: any = null;
+  private analytics: Analytics | null = null;
+  private initializationPromise: Promise<Analytics | null> | null = null;
   private initialized = false;
-  private initializationPromise: Promise<any> | null = null;
 
   constructor() {
     this.initializationPromise = this.initialize();
   }
 
-  private async initialize() {
-    try {
-      this.analytics = await initializeAnalytics();
-      this.initialized = !!this.analytics;
-      return this.analytics;
-    } catch (error) {
-      console.error('Failed to initialize Analytics:', error);
-      this.initialized = false;
-      return null;
-    }
-  }
-
-  // Wait for initialization before using any methods
-  private async ensureInitialized() {
-    if (!this.initialized && this.initializationPromise) {
-      await this.initializationPromise;
-    }
-    return this.initialized;
-  }
-
   // Log a custom event
-  async logEvent(eventName: string, eventParams?: Record<string, any>) {
+  async logEvent(eventName: string, eventParams?: Record<string, unknown>) {
     if ((await this.ensureInitialized()) && this.analytics) {
       logEvent(this.analytics, eventName, eventParams);
     }
@@ -54,7 +37,7 @@ class AnalyticsService {
   }
 
   // Set user properties for analytics
-  async setUserProperties(properties: Record<string, any>) {
+  async setUserProperties(properties: Record<string, unknown>) {
     if ((await this.ensureInitialized()) && this.analytics) {
       setUserProperties(this.analytics, properties);
     }
@@ -96,26 +79,14 @@ class AnalyticsService {
       error_message: errorMessage,
     });
   }
-}
-
-// Performance Service
-class PerformanceService {
-  private performance: any = null;
-  private initialized = false;
-  private initializationPromise: Promise<any> | null = null;
-  private activeTraces: Map<string, any> = new Map();
-
-  constructor() {
-    this.initializationPromise = this.initialize();
-  }
 
   private async initialize() {
     try {
-      this.performance = await initializePerformance();
-      this.initialized = !!this.performance;
-      return this.performance;
+      this.analytics = await initializeAnalytics();
+      this.initialized = !!this.analytics;
+      return this.analytics;
     } catch (error) {
-      console.error('Failed to initialize Performance:', error);
+      console.error('Failed to initialize Analytics:', error);
       this.initialized = false;
       return null;
     }
@@ -127,6 +98,19 @@ class PerformanceService {
       await this.initializationPromise;
     }
     return this.initialized;
+  }
+}
+
+// Performance Service
+// eslint-disable-next-line @typescript-eslint/member-ordering
+class PerformanceService {
+  private activeTraces: Map<string, unknown> = new Map();
+  private initializationPromise: Promise<FirebasePerformance | null> | null = null;
+  private initialized = false;
+  private performance: FirebasePerformance | null = null;
+
+  constructor() {
+    this.initializationPromise = this.initialize();
   }
 
   // Start a custom trace
@@ -152,7 +136,7 @@ class PerformanceService {
       try {
         const traceToStop = this.activeTraces.get(traceName);
         if (traceToStop) {
-          await traceToStop.stop();
+          await (traceToStop as { stop: () => Promise<void> }).stop();
           this.activeTraces.delete(traceName);
           return true;
         }
@@ -169,7 +153,7 @@ class PerformanceService {
       try {
         const currentTrace = this.activeTraces.get(traceName);
         if (currentTrace) {
-          currentTrace.putAttribute(attributeName, attributeValue);
+          (currentTrace as { putAttribute: (name: string, value: string) => void }).putAttribute(attributeName, attributeValue);
           return true;
         }
       } catch (error) {
@@ -188,7 +172,7 @@ class PerformanceService {
       try {
         const currentTrace = this.activeTraces.get(traceName);
         if (currentTrace) {
-          return currentTrace.getAttribute(attributeName);
+          return (currentTrace as { getAttribute: (name: string) => string | null }).getAttribute(attributeName);
         }
       } catch (error) {
         console.error(
@@ -206,7 +190,7 @@ class PerformanceService {
       try {
         const currentTrace = this.activeTraces.get(traceName);
         if (currentTrace) {
-          currentTrace.putMetric(metricName, value);
+          (currentTrace as { putMetric: (name: string, value: number) => void }).putMetric(metricName, value);
           return true;
         }
       } catch (error) {
@@ -244,6 +228,26 @@ class PerformanceService {
       start: async () => await this.startTrace(traceName),
       stop: async () => await this.stopTrace(traceName),
     };
+  }
+
+  private async initialize() {
+    try {
+      this.performance = await initializePerformance();
+      this.initialized = !!this.performance;
+      return this.performance;
+    } catch (error) {
+      console.error('Failed to initialize Performance:', error);
+      this.initialized = false;
+      return null;
+    }
+  }
+
+  // Wait for initialization before using any methods
+  private async ensureInitialized() {
+    if (!this.initialized && this.initializationPromise) {
+      await this.initializationPromise;
+    }
+    return this.initialized;
   }
 }
 

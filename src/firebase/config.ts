@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getPerformance } from 'firebase/performance';
 
 // Validate config to ensure required fields are present
-const validateFirebaseConfig = (config: any) => {
+const validateFirebaseConfig = (config: unknown) => {
   const requiredFields = [
     'apiKey',
     'authDomain',
@@ -12,7 +12,7 @@ const validateFirebaseConfig = (config: any) => {
     'messagingSenderId',
     'appId',
   ];
-  const missingFields = requiredFields.filter((field) => !config[field]);
+  const missingFields = requiredFields.filter((field) => !(config as Record<string, unknown>)[field]);
 
   if (missingFields.length > 0) {
     console.error(

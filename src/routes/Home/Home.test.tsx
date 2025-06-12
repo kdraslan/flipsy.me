@@ -86,9 +86,6 @@ Object.defineProperty(window, 'localStorage', {
 
 // Mock canvas functionality without directly overriding prototype methods
 beforeAll(() => {
-  // Store original method
-  const originalGetContext = HTMLCanvasElement.prototype.getContext;
-
   // Mock getContext
   jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(function (
     this: HTMLCanvasElement,
@@ -123,12 +120,7 @@ afterAll(() => {
   jest.restoreAllMocks();
 });
 
-// Helper function to create a File object
-function createMockFile(name: string, type: string, size: number) {
-  const file = new File([], name, { type });
-  Object.defineProperty(file, 'size', { value: size });
-  return file;
-}
+// Helper function to create a File object (removed unused function)
 
 describe('Home', () => {
   beforeEach(() => {
