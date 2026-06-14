@@ -4,10 +4,6 @@ export const OUTPUT_FORMATS = [
   { label: 'WebP', value: 'image/webp' },
 ] as const
 
-export const ACCEPTED_INPUT: Record<string, string[]> = {
-  'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp', '.bmp', '.tiff'],
-}
-
 export const FILE_ACCEPT = 'image/*' // accept attribute for the native file input.
 
 export const LOSSY_FORMATS = ['image/jpeg', 'image/webp'] // Formats whose output honours quality.

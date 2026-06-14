@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import type { DragEvent, KeyboardEvent } from 'react'
+import { useRef, useState } from 'react'
 
 import Logo from '@/components/Logo/Logo'
 import { ThemeToggle } from '@/components/ThemeToggle/ThemeToggle'
@@ -21,6 +22,7 @@ import {
 } from '@/constants/app'
 import { trackButtonClick, trackError } from '@/firebase/tracking'
 import { useImages } from '@/hooks/useImages'
+import { useIsTouch } from '@/hooks/useIsTouch'
 import { useTheme } from '@/hooks/useTheme'
 import { downloadBlob } from '@/services/fileService'
 import {
@@ -34,15 +36,16 @@ import { formatFileSize, getFormatLabel } from '@/utils/format'
 import styles from './Home.module.css'
 
 const Home = () => {
+  const isTouch = useIsTouch()
   const { theme, toggleTheme } = useTheme()
-  const { addFiles, clearImages, dropzone, images, removeImage, selectImage, selectedImage } =
-    useImages()
+  const { addFiles, clearImages, images, removeImage, selectImage, selectedImage } = useImages()
   const [format, setFormat] = useState(DEFAULT_FORMAT)
   const [quality, setQuality] = useState(DEFAULT_QUALITY)
   const [maxDimension, setMaxDimension] = useState(0)
   const [isConverting, setIsConverting] = useState(false)
+  const [isDragActive, setIsDragActive] = useState(false)
+  const dragDepth = useRef(0)
 
-  const { getRootProps, isDragActive } = dropzone
   const options = { format, maxDimension, quality }
   const output = selectedImage
     ? scaledDimensions(selectedImage.width, selectedImage.height, maxDimension)
@@ -83,6 +86,56 @@ const Home = () => {
     clearImages()
   }
 
+  const openFilePicker = () => {
+    const input = document.createElement('input') // A fresh input per open avoids iOS stale-input state.
+    input.type = 'file'
+    input.accept = FILE_ACCEPT
+    input.multiple = true
+    input.style.position = 'fixed'
+    input.style.top = '-100px'
+    const cleanup = () => input.remove()
+    input.addEventListener('change', () => {
+      void addFiles(Array.from(input.files ?? []))
+      cleanup()
+    })
+    input.addEventListener('cancel', cleanup)
+    document.body.appendChild(input)
+    input.click()
+  }
+
+  const handleDropzoneKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      openFilePicker()
+    }
+  }
+
+  const handleDragEnter = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    dragDepth.current += 1
+    setIsDragActive(true)
+  }
+
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+  }
+
+  const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    dragDepth.current -= 1
+    if (dragDepth.current <= 0) {
+      dragDepth.current = 0
+      setIsDragActive(false)
+    }
+  }
+
+  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    dragDepth.current = 0
+    setIsDragActive(false)
+    void addFiles(Array.from(event.dataTransfer.files))
+  }
+
   return (
     <div className={styles.app}>
       <ThemeToggle
@@ -98,34 +151,39 @@ const Home = () => {
       </header>
 
       <main className={styles.main}>
-        <div
-          {...getRootProps({
-            className: `${styles.dropzone} ${isDragActive ? styles.dropzoneActive : ''}`,
-          })}
-        >
-          <input
-            type="file"
-            accept={FILE_ACCEPT}
-            multiple
-            className={styles.fileInput}
-            onChange={(event) => {
-              const input = event.currentTarget
-              void addFiles(Array.from(input.files ?? []))
-              input.value = ''
-            }}
-          />
-          <span className={styles.dropzoneIcon}>
+        {isTouch ? (
+          <CustomButton
+            variant="primary"
+            size="lg"
+            fullWidth
+            onClick={openFilePicker}
+          >
             <Icon name="upload" />
-          </span>
-          {isDragActive ? (
-            <p className={styles.dropzoneTitle}>Drop your images here</p>
-          ) : (
-            <>
-              <p className={styles.dropzoneTitle}>Drag & drop images, or click to browse</p>
-              <p className={styles.dropzoneHint}>JPEG · PNG · WebP · GIF · BMP · TIFF</p>
-            </>
-          )}
-        </div>
+            Click to upload images
+          </CustomButton>
+        ) : (
+          <div
+            className={`${styles.dropzone} ${isDragActive ? styles.dropzoneActive : ''}`}
+            role="button"
+            tabIndex={0}
+            onClick={openFilePicker}
+            onKeyDown={handleDropzoneKeyDown}
+            onDragEnter={handleDragEnter}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            <span className={styles.dropzoneIcon}>
+              <Icon name="upload" />
+            </span>
+            <p className={styles.dropzoneTitle}>
+              {isDragActive ? 'Drop your images here' : 'Drag & drop images, or click to browse'}
+            </p>
+            <p className={styles.dropzoneHint}>
+              {isDragActive ? 'Release to add them' : 'JPEG · PNG · WebP · GIF · BMP · TIFF'}
+            </p>
+          </div>
+        )}
 
         {images.length > 0 && (
           <Panel>

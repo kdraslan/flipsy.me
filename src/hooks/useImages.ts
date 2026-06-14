@@ -1,7 +1,5 @@
 import { useState } from 'react'
-import { useDropzone } from 'react-dropzone'
 
-import { ACCEPTED_INPUT } from '@/constants/app'
 import { getImageDimensions, readFileAsDataUrl } from '@/services/fileService'
 import type { ImageItem } from '@/types/image'
 import { generateId } from '@/utils/format'
@@ -13,8 +11,11 @@ export const useImages = () => {
   const selectedImage = images.find((image) => image.id === selectedId) ?? null
 
   const addFiles = async (files: File[]) => {
+    const accepted = files.filter((file) => file.type.startsWith('image/'))
+    if (!accepted.length) return
+
     const added = await Promise.all(
-      files.map(async (file) => {
+      accepted.map(async (file) => {
         const dataUrl = await readFileAsDataUrl(file)
         const { height, width } = await getImageDimensions(dataUrl)
         return {
@@ -44,20 +45,5 @@ export const useImages = () => {
     setSelectedId(null)
   }
 
-  const dropzone = useDropzone({
-    accept: ACCEPTED_INPUT,
-    noClick: true,
-    noKeyboard: true,
-    onDrop: addFiles,
-  })
-
-  return {
-    addFiles,
-    clearImages,
-    dropzone,
-    images,
-    removeImage,
-    selectedImage,
-    selectImage: setSelectedId,
-  }
+  return { addFiles, clearImages, images, removeImage, selectedImage, selectImage: setSelectedId }
 }
