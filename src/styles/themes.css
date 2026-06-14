@@ -20,9 +20,23 @@
   --brand-soft: rgba(1, 175, 171, 0.12);
   --danger-soft: rgba(255, 59, 92, 0.12);
 
-  --dropzone-bg: color-mix(in srgb, var(--brand) 30%, var(--surface-solid));
-  --dropzone-hover: color-mix(in srgb, var(--brand) 40%, var(--surface-solid));
-  --dropzone-active: color-mix(in srgb, var(--brand) 50%, var(--surface-solid));
+  --dropzone-bg: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--brand) 26%, #fff) 0%,
+    color-mix(in srgb, var(--brand) 10%, #fff) 100%
+  );
+  --dropzone-hover: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--brand) 36%, #fff) 0%,
+    color-mix(in srgb, var(--brand) 16%, #fff) 100%
+  );
+  --dropzone-active: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--brand) 48%, #fff) 0%,
+    color-mix(in srgb, var(--brand) 26%, #fff) 100%
+  );
+  --dropzone-shadow: 0 18px 40px -12px rgba(1, 145, 142, 0.45);
+  --dropzone-shadow-hover: 0 24px 50px -12px rgba(1, 145, 142, 0.55);
 
   --shadow-sm: 0 2px 8px rgba(13, 60, 58, 0.06);
   --shadow-md: 0 12px 32px rgba(13, 60, 58, 0.1);
@@ -59,6 +73,8 @@
   --dropzone-bg: color-mix(in srgb, var(--brand) 16%, var(--surface-solid));
   --dropzone-hover: color-mix(in srgb, var(--brand) 24%, var(--surface-solid));
   --dropzone-active: color-mix(in srgb, var(--brand) 32%, var(--surface-solid));
+  --dropzone-shadow: var(--shadow-md);
+  --dropzone-shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.5);
 
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45);

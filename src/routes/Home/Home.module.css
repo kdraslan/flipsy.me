@@ -29,7 +29,7 @@
   align-items: center;
   background: var(--dropzone-bg);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--dropzone-shadow);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -38,19 +38,19 @@
   text-align: center;
   transition:
     transform var(--transition),
-    background-color var(--transition),
+    background var(--transition),
     box-shadow var(--transition);
 
   &:hover {
     background: var(--dropzone-hover);
-    box-shadow: var(--shadow-brand);
+    box-shadow: var(--dropzone-shadow-hover);
     transform: translateY(-2px);
   }
 }
 
 .dropzoneActive {
   background: var(--dropzone-active);
-  box-shadow: var(--shadow-brand);
+  box-shadow: var(--dropzone-shadow-hover);
   transform: translateY(-3px) scale(1.01);
 }
 
