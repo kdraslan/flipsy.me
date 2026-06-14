@@ -13,8 +13,9 @@
 }
 
 .chevron {
+  --icon-size: 14px;
   color: var(--text-muted);
-  font-size: var(--text-sm);
+  display: inline-flex;
   transition: transform var(--transition);
 }
 

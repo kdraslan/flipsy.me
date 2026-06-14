@@ -55,9 +55,8 @@
 }
 
 .dropzoneIcon {
+  --icon-size: 30px;
   color: var(--brand);
-  font-size: var(--text-xl);
-  line-height: 1;
 }
 
 .dropzoneTitle {
@@ -123,10 +122,12 @@
 }
 
 .rowMark {
+  --icon-size: 14px;
+  align-items: center;
   color: var(--brand);
+  display: inline-flex;
   flex-shrink: 0;
-  font-weight: var(--weight-bold);
-  text-align: center;
+  justify-content: center;
   width: 16px;
 }
 
@@ -153,6 +154,7 @@
 }
 
 .remove {
+  --icon-size: 18px;
   align-items: center;
   background: transparent;
   border: none;

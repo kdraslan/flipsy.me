@@ -1,4 +1,4 @@
-import { CustomButton } from '@/components/ui'
+import { CustomButton, Icon } from '@/components/ui'
 import type { Theme } from '@/hooks/useTheme'
 
 import styles from './ThemeToggle.module.css'
@@ -17,6 +17,6 @@ export const ThemeToggle = (
     onClick={onToggle}
     aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
   >
-    {theme === 'dark' ? '☀' : '☾'}
+    <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
   </CustomButton>
 )

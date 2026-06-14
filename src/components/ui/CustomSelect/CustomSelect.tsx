@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 
 import { Field } from '@/components/ui/Field/Field'
+import { Icon } from '@/components/ui/Icon/Icon'
 import { useClickOutside } from '@/hooks/useClickOutside'
 
 import barStyles from '../fieldFocus.module.css'
@@ -50,11 +51,8 @@ export const CustomSelect = ({ id, label, onChange, options, value }: CustomSele
           onKeyDown={(event) => event.key === 'Escape' && setOpen(false)}
         >
           <span>{selected?.label ?? 'Select'}</span>
-          <span
-            className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`}
-            aria-hidden="true"
-          >
-            ▾
+          <span className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`}>
+            <Icon name="chevron" />
           </span>
         </button>
         {open && (

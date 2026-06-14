@@ -9,6 +9,7 @@ import {
   CustomSelect,
   CustomSlider,
   Headline,
+  Icon,
   Panel,
 } from '@/components/ui'
 import { DEFAULT_FORMAT, DEFAULT_QUALITY, OUTPUT_FORMATS, ZIP_FILENAME } from '@/constants/app'
@@ -96,11 +97,8 @@ const Home = () => {
           })}
         >
           <input {...getInputProps()} />
-          <span
-            className={styles.dropzoneIcon}
-            aria-hidden="true"
-          >
-            ⬆
+          <span className={styles.dropzoneIcon}>
+            <Icon name="upload" />
           </span>
           {isDragActive ? (
             <p className={styles.dropzoneTitle}>Drop your images here</p>
@@ -147,12 +145,7 @@ const Home = () => {
                     className={`${styles.row} ${selected ? styles.rowSelected : ''}`}
                     onClick={() => selectImage(image.id)}
                   >
-                    <span
-                      className={styles.rowMark}
-                      aria-hidden="true"
-                    >
-                      {selected ? '✓' : ''}
-                    </span>
+                    <span className={styles.rowMark}>{selected && <Icon name="check" />}</span>
                     <span className={styles.rowInfo}>
                       <span className={styles.rowName}>{image.name}</span>
                       <span className={styles.rowMeta}>
@@ -168,20 +161,7 @@ const Home = () => {
                         removeImage(image.id)
                       }}
                     >
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 18 18"
-                        fill="none"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M4.5 4.5l9 9M13.5 4.5l-9 9"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                      </svg>
+                      <Icon name="close" />
                     </button>
                   </li>
                 )
