@@ -44,7 +44,20 @@ export const useImages = () => {
     setSelectedId(null)
   }
 
-  const dropzone = useDropzone({ accept: ACCEPTED_INPUT, onDrop: addFiles })
+  const dropzone = useDropzone({
+    accept: ACCEPTED_INPUT,
+    noClick: true,
+    noKeyboard: true,
+    onDrop: addFiles,
+  })
 
-  return { clearImages, dropzone, images, removeImage, selectedImage, selectImage: setSelectedId }
+  return {
+    addFiles,
+    clearImages,
+    dropzone,
+    images,
+    removeImage,
+    selectedImage,
+    selectImage: setSelectedId,
+  }
 }

@@ -13,8 +13,10 @@
     box-shadow var(--transition),
     background-color var(--transition);
 
-  &:hover:not(:disabled) {
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+    }
   }
 
   &:disabled {
@@ -48,8 +50,10 @@
   background: var(--danger-soft);
   color: var(--danger);
 
-  &:hover:not(:disabled) {
-    background: color-mix(in srgb, var(--danger) 22%, transparent);
+  @media (hover: hover) {
+    &:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--danger) 22%, transparent);
+    }
   }
 }
 
@@ -57,7 +61,9 @@
   background: transparent;
   color: var(--text);
 
-  &:hover:not(:disabled) {
-    background: var(--brand-soft);
+  @media (hover: hover) {
+    &:hover:not(:disabled) {
+      background: var(--brand-soft);
+    }
   }
 }

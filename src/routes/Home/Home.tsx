@@ -12,7 +12,13 @@ import {
   Icon,
   Panel,
 } from '@/components/ui'
-import { DEFAULT_FORMAT, DEFAULT_QUALITY, OUTPUT_FORMATS, ZIP_FILENAME } from '@/constants/app'
+import {
+  DEFAULT_FORMAT,
+  DEFAULT_QUALITY,
+  FILE_ACCEPT,
+  OUTPUT_FORMATS,
+  ZIP_FILENAME,
+} from '@/constants/app'
 import { trackButtonClick, trackError } from '@/firebase/tracking'
 import { useImages } from '@/hooks/useImages'
 import { useTheme } from '@/hooks/useTheme'
@@ -29,13 +35,14 @@ import styles from './Home.module.css'
 
 const Home = () => {
   const { theme, toggleTheme } = useTheme()
-  const { clearImages, dropzone, images, removeImage, selectImage, selectedImage } = useImages()
+  const { addFiles, clearImages, dropzone, images, removeImage, selectImage, selectedImage } =
+    useImages()
   const [format, setFormat] = useState(DEFAULT_FORMAT)
   const [quality, setQuality] = useState(DEFAULT_QUALITY)
   const [maxDimension, setMaxDimension] = useState(0)
   const [isConverting, setIsConverting] = useState(false)
 
-  const { getInputProps, getRootProps, isDragActive } = dropzone
+  const { getRootProps, isDragActive } = dropzone
   const options = { format, maxDimension, quality }
   const output = selectedImage
     ? scaledDimensions(selectedImage.width, selectedImage.height, maxDimension)
@@ -96,7 +103,17 @@ const Home = () => {
             className: `${styles.dropzone} ${isDragActive ? styles.dropzoneActive : ''}`,
           })}
         >
-          <input {...getInputProps()} />
+          <input
+            type="file"
+            accept={FILE_ACCEPT}
+            multiple
+            className={styles.fileInput}
+            onChange={(event) => {
+              const input = event.currentTarget
+              void addFiles(Array.from(input.files ?? []))
+              input.value = ''
+            }}
+          />
           <span className={styles.dropzoneIcon}>
             <Icon name="upload" />
           </span>
