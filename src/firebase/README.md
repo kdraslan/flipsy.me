@@ -24,19 +24,19 @@ VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
 Import the tracking functions and use them in your components:
 
 ```typescript
-import { trackButtonClick, trackError } from '@/firebase/tracking';
+import { trackButtonClick, trackError } from '@/firebase/tracking'
 
 // Track a button click
 const handleClick = () => {
-  trackButtonClick('my_button');
+  trackButtonClick('my_button')
   // Your button logic here
-};
+}
 
 // Track an error
 try {
   // Some code that might throw
 } catch (error) {
-  trackError(error.message, 'component_name');
+  trackError(error.message, 'component_name')
 }
 ```
 

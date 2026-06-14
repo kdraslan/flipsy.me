@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import { trackButtonClick, trackError } from '@/firebase/tracking';
+import { trackButtonClick, trackError } from '@/firebase/tracking'
 
-import styles from './Tracking.module.css';
+import styles from './Tracking.module.css'
 
 const Tracking: React.FC = () => {
-  const [count, setCount] = useState(0);
-  const [errorCount, setErrorCount] = useState(0);
+  const [count, setCount] = useState(0)
+  const [errorCount, setErrorCount] = useState(0)
   const handleButtonClick = () => {
-    trackButtonClick('demo_button');
+    trackButtonClick('demo_button')
 
-    setCount(count + 1);
-  };
+    setCount(count + 1)
+  }
 
   const handleErrorClick = () => {
-    trackButtonClick('error_button');
+    trackButtonClick('error_button')
 
-    setErrorCount(errorCount + 1);
+    setErrorCount(errorCount + 1)
     try {
-      throw new Error('This is a demo error');
+      throw new Error('This is a demo error')
     } catch (error) {
-      trackError((error as Error).message, 'Tracking.handleErrorClick');
+      trackError((error as Error).message, 'Tracking.handleErrorClick')
     }
-  };
+  }
 
   return (
     <div className={styles.container}>
@@ -45,11 +45,9 @@ const Tracking: React.FC = () => {
         </button>
       </div>
 
-      <p className={styles.note}>
-        Check the browser console to see tracking events.
-      </p>
+      <p className={styles.note}>Check the browser console to see tracking events.</p>
     </div>
-  );
-};
+  )
+}
 
-export default Tracking;
+export default Tracking

@@ -1,0 +1,18 @@
+.control {
+  background: var(--field-bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  min-height: var(--control-height);
+  padding: var(--space-sm) var(--space-md);
+  transition:
+    box-shadow var(--transition),
+    background-color var(--transition);
+  width: 100%;
+}
+
+.control:focus {
+  outline: none;
+}

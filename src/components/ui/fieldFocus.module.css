@@ -1,0 +1,25 @@
+.bar {
+  position: relative;
+}
+
+.bar::before {
+  background: var(--brand);
+  border-radius: var(--radius-pill);
+  content: '';
+  height: 56%;
+  left: 5px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  transition:
+    opacity var(--transition),
+    transform var(--transition);
+  width: 3px;
+}
+
+.bar:focus-within::before {
+  opacity: 1;
+  transform: translateY(-50%) scaleY(1);
+}

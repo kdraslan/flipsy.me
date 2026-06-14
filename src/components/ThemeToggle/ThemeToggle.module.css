@@ -1,0 +1,15 @@
+.toggle {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  background: var(--surface);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--text-lg);
+  height: 42px;
+  padding: 0;
+  position: fixed;
+  right: var(--space-md);
+  top: var(--space-md);
+  width: 42px;
+  z-index: 10;
+}

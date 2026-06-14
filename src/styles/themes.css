@@ -1,0 +1,71 @@
+:root {
+  color-scheme: light;
+
+  --bg-base: #eef4f4;
+  --bg-glow-1: rgba(1, 175, 171, 0.16);
+  --bg-glow-2: rgba(88, 86, 214, 0.12);
+  --bg-glow-3: rgba(1, 175, 171, 0.08);
+
+  --surface: rgba(255, 255, 255, 0.85);
+  --surface-solid: #ffffff;
+  --field-bg: #e7eded;
+  --field-hover: #dde6e5;
+  --checker: #e4eae9;
+
+  --text-strong: #12302f;
+  --text: #234241;
+  --text-muted: #5d7271;
+  --border: rgba(13, 60, 58, 0.1);
+
+  --brand-soft: rgba(1, 175, 171, 0.12);
+  --danger-soft: rgba(255, 59, 92, 0.12);
+
+  --dropzone-bg: color-mix(in srgb, var(--brand) 30%, var(--surface-solid));
+  --dropzone-hover: color-mix(in srgb, var(--brand) 40%, var(--surface-solid));
+  --dropzone-active: color-mix(in srgb, var(--brand) 50%, var(--surface-solid));
+
+  --shadow-sm: 0 2px 8px rgba(13, 60, 58, 0.06);
+  --shadow-md: 0 12px 32px rgba(13, 60, 58, 0.1);
+  --shadow-lg: 0 24px 60px rgba(13, 60, 58, 0.14);
+  --shadow-brand: 0 10px 28px rgba(1, 175, 171, 0.32);
+
+  --logo-ink: #16302f;
+  --logo-me-from: #a6cecb;
+  --logo-me-to: #2fbdb8;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg-base: #0c1716;
+  --bg-glow-1: rgba(1, 175, 171, 0.18);
+  --bg-glow-2: rgba(88, 86, 214, 0.16);
+  --bg-glow-3: rgba(1, 175, 171, 0.1);
+
+  --surface: rgba(28, 44, 42, 0.85);
+  --surface-solid: #1b2725;
+  --field-bg: #0f1a19;
+  --field-hover: #142220;
+  --checker: #243130;
+
+  --text-strong: #ecf3f2;
+  --text: #cfdedd;
+  --text-muted: #8aa09f;
+  --border: rgba(255, 255, 255, 0.1);
+
+  --brand-soft: rgba(1, 175, 171, 0.18);
+  --danger-soft: rgba(255, 59, 92, 0.18);
+
+  --dropzone-bg: color-mix(in srgb, var(--brand) 16%, var(--surface-solid));
+  --dropzone-hover: color-mix(in srgb, var(--brand) 24%, var(--surface-solid));
+  --dropzone-active: color-mix(in srgb, var(--brand) 32%, var(--surface-solid));
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-brand: 0 10px 28px rgba(1, 175, 171, 0.4);
+
+  --logo-ink: #ffffff;
+  --logo-me-from: #e9f2f1;
+  --logo-me-to: #1fb8b3;
+}

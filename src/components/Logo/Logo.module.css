@@ -1,21 +1,57 @@
 .logoContainer {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 2rem 0;
-  width: 100%;
+  margin: var(--space-xl) 0 var(--space-lg);
   overflow: visible;
+  transition: margin var(--transition-slow);
+  width: 100%;
+}
+
+.logoContainer.compact {
+  margin: var(--space-sm) 0 var(--space-2xs);
 }
 
 .svgElement {
-  max-width: 50%;
-  height: auto;
-  fill-rule: evenodd;
   clip-rule: evenodd;
+  fill-rule: evenodd;
+  height: auto;
+  margin: 0 auto;
+  max-width: 46%;
+  min-width: min(200px, 100%);
+  overflow: visible;
   stroke-linecap: round;
   stroke-miterlimit: 1.5;
-  margin: 0 auto;
-  overflow: visible;
+  transition:
+    max-width var(--transition-slow),
+    min-width var(--transition-slow);
+}
+
+.compact .svgElement {
+  max-width: 24%;
+  min-width: min(150px, 100%);
+}
+
+.ink {
+  fill: var(--logo-ink);
+  transition: fill var(--transition);
+}
+
+.accent {
+  fill: var(--brand);
+}
+
+.me {
+  fill: url('#flipsyMe');
+}
+
+.meStart {
+  stop-color: var(--logo-me-from);
+  transition: stop-color var(--transition);
+}
+
+.meEnd {
+  stop-color: var(--logo-me-to);
 }
 
 .animatePullRelease {
@@ -28,21 +64,27 @@
   0% {
     transform: rotate(0deg);
   }
+
   10% {
     transform: rotate(30deg);
   }
+
   25% {
     transform: rotate(-15deg);
   }
+
   40% {
     transform: rotate(10deg);
   }
+
   60% {
     transform: rotate(-6deg);
   }
+
   80% {
     transform: rotate(3deg);
   }
+
   100% {
     transform: rotate(0deg);
   }

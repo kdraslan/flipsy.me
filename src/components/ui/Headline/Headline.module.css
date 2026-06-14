@@ -1,0 +1,21 @@
+.headline {
+  align-items: center;
+  color: var(--text-strong);
+  display: flex;
+  font-weight: var(--weight-bold);
+  gap: var(--space-sm);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.sm {
+  font-size: var(--text-md);
+}
+
+.md {
+  font-size: var(--text-lg);
+}
+
+.lg {
+  font-size: var(--text-xl);
+}
