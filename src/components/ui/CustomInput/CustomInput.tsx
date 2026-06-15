@@ -2,8 +2,8 @@ import type { InputHTMLAttributes } from 'react'
 
 import { Field } from '@/components/ui/Field/Field'
 
-import barStyles from '../fieldFocus.module.css'
-import styles from './CustomInput.module.css'
+import barStyles from '../fieldFocus.module.scss'
+import styles from './CustomInput.module.scss'
 
 interface CustomInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   id: string
@@ -11,9 +11,7 @@ interface CustomInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, '
   onValueChange: (value: string) => void
 }
 
-export const CustomInput = (
-  { id, label, onValueChange, ...rest }: CustomInputProps, // Labelled text or number input.
-) => (
+export const CustomInput = ({ id, label, onValueChange, ...rest }: CustomInputProps) => (
   <Field
     id={id}
     label={label}

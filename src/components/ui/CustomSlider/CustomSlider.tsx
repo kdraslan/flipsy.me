@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 
 import { Field } from '@/components/ui/Field/Field'
 
-import styles from './CustomSlider.module.css'
+import styles from './CustomSlider.module.scss'
 
 interface CustomSliderProps {
   formatValue?: (value: number) => string

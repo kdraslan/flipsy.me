@@ -7,7 +7,7 @@ export const formatFileSize = (bytes: number): string => {
 }
 
 export const getFormatLabel = (mimeType: string): string =>
-  FORMAT_LABELS[mimeType] ?? mimeType.split('/')[1]?.toUpperCase() ?? mimeType // Returns a display label for a MIME type.
+  FORMAT_LABELS[mimeType] ?? mimeType.split('/')[1]?.toUpperCase() ?? mimeType
 
-export const generateId = (): string => // Generates a short, collision-resistant image id.
+export const generateId = (): string =>
   Date.now().toString(36) + Math.random().toString(36).slice(2)

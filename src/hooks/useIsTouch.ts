@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react'
 const QUERY = '(pointer: coarse)'
 
 export const useIsTouch = () => {
-  const [isTouch, setIsTouch] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia(QUERY).matches,
-  )
+  const [isTouch, setIsTouch] = useState(() => window.matchMedia(QUERY).matches)
 
   useEffect(() => {
     const media = window.matchMedia(QUERY)

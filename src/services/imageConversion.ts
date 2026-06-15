@@ -9,11 +9,9 @@ export const scaledDimensions = (width: number, height: number, max: number) => 
   return { height: Math.round(height * scale), width: Math.round(width * scale) }
 }
 
-export const isLossyFormat = (format: string): boolean => LOSSY_FORMATS.includes(format) // Honours quality.
+export const isLossyFormat = (format: string): boolean => LOSSY_FORMATS.includes(format)
 
-const loadImage = (
-  dataUrl: string,
-): Promise<HTMLImageElement> => // Decodes a data URL into an image.
+const loadImage = (dataUrl: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
     const img = new Image()
     img.onload = () => resolve(img)

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import styles from './Field.module.css'
+import styles from './Field.module.scss'
 
 interface FieldProps {
   children: ReactNode
@@ -8,9 +8,7 @@ interface FieldProps {
   label: ReactNode
 }
 
-export const Field = (
-  { children, id, label }: FieldProps, // A labelled control wrapper for inputs.
-) => (
+export const Field = ({ children, id, label }: FieldProps) => (
   <div className={styles.field}>
     <label
       className={styles.label}

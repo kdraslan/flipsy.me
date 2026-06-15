@@ -3,7 +3,7 @@
 }
 
 .trigger {
-  composes: control from '../control.module.css';
+  composes: control from '../control.module.scss';
   align-items: center;
   cursor: pointer;
   display: flex;
@@ -54,8 +54,10 @@
     color var(--transition);
   width: 100%;
 
-  &:hover {
-    background: var(--brand-soft);
+  @include hover {
+    &:hover {
+      background: var(--brand-soft);
+    }
   }
 }
 

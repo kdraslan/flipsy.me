@@ -1,8 +1,6 @@
 import { saveAs } from 'file-saver'
 
-export const readFileAsDataUrl = (
-  file: File,
-): Promise<string> => // Reads a File into a data URL.
+export const readFileAsDataUrl = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => resolve(reader.result as string)
@@ -18,4 +16,4 @@ export const getImageDimensions = (dataUrl: string): Promise<{ height: number; w
     img.src = dataUrl
   })
 
-export const downloadBlob = (blob: Blob, filename: string): void => saveAs(blob, filename) // Saves a blob.
+export const downloadBlob = (blob: Blob, filename: string): void => saveAs(blob, filename)

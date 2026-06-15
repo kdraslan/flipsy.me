@@ -1,7 +1,6 @@
 module.exports = {
   extends: [
     'react-app',
-    'react-app/jest',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/errors',
@@ -29,68 +28,12 @@ module.exports = {
   rules: {
     // TypeScript
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/member-ordering': [
-      'error',
-      {
-        default: {
-          memberTypes: [
-            // Index signature
-            'signature',
-
-            // Fields
-            'public-static-field',
-            'protected-static-field',
-            'private-static-field',
-            'public-decorated-field',
-            'protected-decorated-field',
-            'private-decorated-field',
-            'public-instance-field',
-            'protected-instance-field',
-            'private-instance-field',
-            'public-abstract-field',
-            'protected-abstract-field',
-            'public-field',
-            'protected-field',
-            'private-field',
-            'static-field',
-            'instance-field',
-            'abstract-field',
-            'decorated-field',
-            'field',
-
-            // Constructors
-            'public-constructor',
-            'protected-constructor',
-            'private-constructor',
-            'constructor',
-
-            // Methods
-            'public-static-method',
-            'protected-static-method',
-            'private-static-method',
-            'public-decorated-method',
-            'protected-decorated-method',
-            'private-decorated-method',
-            'public-instance-method',
-            'protected-instance-method',
-            'private-instance-method',
-            'public-abstract-method',
-            'protected-abstract-method',
-            'public-method',
-            'protected-method',
-            'private-method',
-            'static-method',
-            'instance-method',
-            'abstract-method',
-            'decorated-method',
-            'method',
-          ],
-          order: 'alphabetically',
-        },
-      },
-    ],
-    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/sort-type-constituents': 'error',
+
+    // Cruft prevention
+    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-debugger': 'error',
 
     // Comments formatting
     'lines-around-comment': [
@@ -108,48 +51,6 @@ module.exports = {
     // React
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
-    'react/sort-comp': [
-      'error',
-      {
-        groups: {
-          lifecycle: [
-            'displayName',
-            'propTypes',
-            'contextTypes',
-            'childContextTypes',
-            'mixins',
-            'statics',
-            'defaultProps',
-            'constructor',
-            'getDefaultProps',
-            'state',
-            'getInitialState',
-            'getChildContext',
-            'getDerivedStateFromProps',
-            'componentWillMount',
-            'UNSAFE_componentWillMount',
-            'componentDidMount',
-            'componentWillReceiveProps',
-            'UNSAFE_componentWillReceiveProps',
-            'shouldComponentUpdate',
-            'componentWillUpdate',
-            'UNSAFE_componentWillUpdate',
-            'getSnapshotBeforeUpdate',
-            'componentDidUpdate',
-            'componentDidCatch',
-            'componentWillUnmount',
-          ],
-        },
-        order: [
-          'static-variables',
-          'static-methods',
-          'instance-variables',
-          'lifecycle',
-          'everything-else',
-          'render',
-        ],
-      },
-    ],
 
     // React Hooks
     'react-hooks/exhaustive-deps': 'warn',

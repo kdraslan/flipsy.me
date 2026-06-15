@@ -11,8 +11,8 @@
     box-shadow var(--transition),
     background-color var(--transition);
   width: 100%;
-}
 
-.control:focus {
-  outline: none;
+  &:focus {
+    outline: none;
+  }
 }

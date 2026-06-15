@@ -1,7 +1,9 @@
 import '@/firebase/config' // Importing initializes Firebase as a side effect.
-import './index.css'
+import './styles/tokens.scss'
+import './styles/themes.scss'
+import './index.scss'
 
-import React from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { trackError } from '@/firebase/tracking'
@@ -17,7 +19,7 @@ window.addEventListener('error', (event) => {
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <Home />
-  </React.StrictMode>,
+  </StrictMode>,
 )

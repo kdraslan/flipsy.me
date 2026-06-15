@@ -1,13 +1,3 @@
-export const OUTPUT_FORMATS = [
-  { label: 'JPEG', value: 'image/jpeg' },
-  { label: 'PNG', value: 'image/png' },
-  { label: 'WebP', value: 'image/webp' },
-] as const
-
-export const FILE_ACCEPT = 'image/*' // accept attribute for the native file input.
-
-export const LOSSY_FORMATS = ['image/jpeg', 'image/webp'] // Formats whose output honours quality.
-
 export const FORMAT_LABELS: Record<string, string> = {
   'image/bmp': 'BMP',
   'image/gif': 'GIF',
@@ -16,6 +6,15 @@ export const FORMAT_LABELS: Record<string, string> = {
   'image/tiff': 'TIFF',
   'image/webp': 'WebP',
 }
+
+export const OUTPUT_FORMATS = ['image/jpeg', 'image/png', 'image/webp'].map((value) => ({
+  label: FORMAT_LABELS[value],
+  value,
+}))
+
+export const LOSSY_FORMATS = ['image/jpeg', 'image/webp']
+
+export const FILE_ACCEPT = 'image/*'
 
 export const DEFAULT_FORMAT = 'image/jpeg'
 export const DEFAULT_QUALITY = 0.9

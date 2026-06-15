@@ -4,8 +4,8 @@ import { Field } from '@/components/ui/Field/Field'
 import { Icon } from '@/components/ui/Icon/Icon'
 import { useClickOutside } from '@/hooks/useClickOutside'
 
-import barStyles from '../fieldFocus.module.css'
-import styles from './CustomSelect.module.css'
+import barStyles from '../fieldFocus.module.scss'
+import styles from './CustomSelect.module.scss'
 
 interface SelectOption {
   label: string

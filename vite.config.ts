@@ -6,6 +6,12 @@ export default defineConfig({
   build: {
     outDir: 'build',
   },
+  css: {
+    preprocessorOptions: {
+      // `@include hover { ... }` gates hover styles to hover-capable pointers (no touch sticky-hover).
+      scss: { additionalData: '@mixin hover { @media (hover: hover) { @content; } }\n' },
+    },
+  },
   plugins: [react()],
   resolve: {
     alias: {

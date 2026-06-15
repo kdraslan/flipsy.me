@@ -1,4 +1,4 @@
-import type { DragEvent, KeyboardEvent } from 'react'
+import type { ChangeEvent, DragEvent, KeyboardEvent } from 'react'
 import { useRef, useState } from 'react'
 
 import Logo from '@/components/Logo/Logo'
@@ -33,7 +33,7 @@ import {
 } from '@/services/imageConversion'
 import { formatFileSize, getFormatLabel } from '@/utils/format'
 
-import styles from './Home.module.css'
+import styles from './Home.module.scss'
 
 const Home = () => {
   const isTouch = useIsTouch()
@@ -45,6 +45,7 @@ const Home = () => {
   const [isConverting, setIsConverting] = useState(false)
   const [isDragActive, setIsDragActive] = useState(false)
   const dragDepth = useRef(0)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const options = { format, maxDimension, quality }
   const output = selectedImage
@@ -86,21 +87,11 @@ const Home = () => {
     clearImages()
   }
 
-  const openFilePicker = () => {
-    const input = document.createElement('input') // A fresh input per open avoids iOS stale-input state.
-    input.type = 'file'
-    input.accept = FILE_ACCEPT
-    input.multiple = true
-    input.style.position = 'fixed'
-    input.style.top = '-100px'
-    const cleanup = () => input.remove()
-    input.addEventListener('change', () => {
-      void addFiles(Array.from(input.files ?? []))
-      cleanup()
-    })
-    input.addEventListener('cancel', cleanup)
-    document.body.appendChild(input)
-    input.click()
+  const openFilePicker = () => fileInputRef.current?.click()
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    void addFiles(Array.from(event.target.files ?? []))
+    event.target.value = '' // Reset so re-picking the same file refires change.
   }
 
   const handleDropzoneKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -138,6 +129,15 @@ const Home = () => {
 
   return (
     <div className={styles.app}>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept={FILE_ACCEPT}
+        multiple
+        hidden
+        onChange={handleFileChange}
+      />
+
       <ThemeToggle
         theme={theme}
         onToggle={toggleTheme}

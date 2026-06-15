@@ -1,4 +1,4 @@
-import styles from './Icon.module.css'
+import styles from './Icon.module.scss'
 import { type IconName, ICONS } from './icons'
 
 interface IconProps {

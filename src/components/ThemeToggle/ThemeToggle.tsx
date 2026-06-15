@@ -1,16 +1,14 @@
 import { CustomButton, Icon } from '@/components/ui'
 import type { Theme } from '@/hooks/useTheme'
 
-import styles from './ThemeToggle.module.css'
+import styles from './ThemeToggle.module.scss'
 
 interface ThemeToggleProps {
   onToggle: () => void
   theme: Theme
 }
 
-export const ThemeToggle = (
-  { onToggle, theme }: ThemeToggleProps, // Fixed control toggling light and dark.
-) => (
+export const ThemeToggle = ({ onToggle, theme }: ThemeToggleProps) => (
   <CustomButton
     variant="ghost"
     className={styles.toggle}

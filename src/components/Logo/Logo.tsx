@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-import styles from './Logo.module.css'
+import styles from './Logo.module.scss'
 
 interface LogoProps {
   compact?: boolean

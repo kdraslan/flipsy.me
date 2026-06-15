@@ -41,7 +41,7 @@
     background var(--transition),
     box-shadow var(--transition);
 
-  @media (hover: hover) {
+  @include hover {
     &:hover {
       background: var(--dropzone-hover);
       box-shadow: var(--dropzone-shadow-hover);
@@ -110,16 +110,20 @@
   padding: var(--space-xs) var(--space-sm);
   transition: background-color var(--transition);
 
-  &:hover {
-    background: var(--field-hover);
+  @include hover {
+    &:hover {
+      background: var(--field-hover);
+    }
   }
 }
 
 .rowSelected {
   background: var(--brand-soft);
 
-  &:hover {
-    background: var(--brand-soft);
+  @include hover {
+    &:hover {
+      background: var(--brand-soft);
+    }
   }
 }
 
@@ -170,8 +174,10 @@
   transition: color var(--transition);
   width: 28px;
 
-  &:hover {
-    color: var(--danger);
+  @include hover {
+    &:hover {
+      color: var(--danger);
+    }
   }
 }
 

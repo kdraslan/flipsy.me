@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import { useEffect } from 'react'
 
-export const useClickOutside = <T extends HTMLElement>( // Runs the handler on a pointer press outside the element.
+export const useClickOutside = <T extends HTMLElement>(
   ref: RefObject<T | null>,
   handler: () => void,
 ) => {

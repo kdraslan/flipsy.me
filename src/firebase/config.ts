@@ -1,4 +1,4 @@
-import { Analytics, getAnalytics } from 'firebase/analytics'
+import { type Analytics, getAnalytics } from 'firebase/analytics'
 import { initializeApp } from 'firebase/app'
 
 const firebaseConfig = {
@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 
-let analytics: Analytics | null = null // Analytics is unavailable without a valid config.
+let analytics: Analytics | null = null
 try {
   analytics = getAnalytics(app)
 } catch (error) {

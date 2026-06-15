@@ -1,6 +1,8 @@
 .badge {
   align-items: center;
+  background: var(--brand-soft);
   border-radius: var(--radius-pill);
+  color: var(--brand-deep);
   display: inline-flex;
   font-size: var(--text-xs);
   font-weight: var(--weight-bold);
@@ -8,15 +10,4 @@
   line-height: 1.4;
   min-width: 24px;
   padding: var(--space-2xs) var(--space-xs);
-}
-
-.neutral {
-  background: var(--brand-soft);
-  color: var(--brand-deep);
-}
-
-.brand {
-  background: var(--brand);
-  box-shadow: var(--shadow-brand);
-  color: #fff;
 }
