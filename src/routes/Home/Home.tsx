@@ -29,7 +29,7 @@ import {
   convertImage,
   convertImagesToZip,
   isLossyFormat,
-  scaledDimensions,
+  outputDimensions,
 } from '@/services/imageConversion'
 import { formatFileSize, getFormatLabel } from '@/utils/format'
 
@@ -49,7 +49,12 @@ const Home = () => {
 
   const options = { format, maxDimension, quality }
   const output = selectedImage
-    ? scaledDimensions(selectedImage.width, selectedImage.height, maxDimension)
+    ? outputDimensions(
+        selectedImage.originalFormat,
+        selectedImage.width,
+        selectedImage.height,
+        maxDimension,
+      )
     : null
 
   const handleConvert = async () => {
