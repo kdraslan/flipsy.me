@@ -1,9 +1,11 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset=".github/logo-dark.svg">
-    <img alt="Flipsy" src=".github/logo-light.svg" height="44">
+    <img alt="Flipsy" src=".github/logo-light.svg" height="60">
   </picture>
 </p>
+
+---
 
 <p align="center">
   A fast, private image converter that runs entirely in your browser.
@@ -12,8 +14,6 @@
 <p align="center">
   <a href="https://flipsy.me">flipsy.me</a>
 </p>
-
----
 
 ## What it is
 
