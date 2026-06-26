@@ -1,139 +1,74 @@
-# Flipsy
-A modern, browser-based image conversion tool built with TypeScript and React. It allows users to quickly convert images between different formats without needing to install any software.
-___
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/logo-dark.svg">
+    <img alt="Flipsy" src=".github/logo-light.svg" height="44">
+  </picture>
+</p>
 
 <p align="center">
-  <img src="src/assets/images/logo.svg" alt="Flipsy Logo" width="350" />
+  A fast, private image converter that runs entirely in your browser.
+</p>
+
+<p align="center">
+  <a href="https://flipsy.me">flipsy.me</a>
 </p>
 
 ---
 
-### Features
+## What it is
 
-- Convert images between common formats (JPEG, PNG, WebP, GIF, BMP)
-- Process images directly in the browser (no server uploads required)
-- Intuitive and responsive user interface
-- Secure - your images never leave your computer
+Flipsy converts images between formats without uploading anything. Files are read, converted, and saved entirely on your machine, so your images never leave your computer.
 
-## Getting Started
+## Features
 
-### Prerequisites
+- Convert between **JPEG, PNG, WebP, GIF, and BMP**
+- 100% client-side, no server uploads
+- Batch convert and download everything as a zip
+- Drag-and-drop, responsive interface
 
-- Node.js (v16.0.0 or higher)
-- npm (v8.0.0 or higher)
+## Tech stack
 
-### Installation
+- **React** + **TypeScript**
+- **Vite**
+- `jszip` + `file-saver` for batch downloads
+- **Firebase Hosting**, with optional Firebase Analytics
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/kdraslan/flipsy.me.git
-   cd flipsy.me
-   ```
+## Getting started
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+npm run dev
+```
 
-3. Set up Firebase (optional - for analytics):
-   - Create a Firebase project at https://console.firebase.google.com/
-   - Enable Analytics in your Firebase project
-   - Get your Firebase configuration from Project Settings > General > Your apps
-   - Create a `.env` file in the root directory with your Firebase config:
-   ```env
-   VITE_FIREBASE_API_KEY=your_api_key
-   VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-   VITE_FIREBASE_PROJECT_ID=your_project_id
-   VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-   VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-   VITE_FIREBASE_APP_ID=your_app_id
-   VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
-   ```
+Analytics is optional. To enable it, add your Firebase config to a `.env` file:
 
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
+```env
+VITE_FIREBASE_API_KEY=...
+VITE_FIREBASE_AUTH_DOMAIN=...
+VITE_FIREBASE_PROJECT_ID=...
+VITE_FIREBASE_STORAGE_BUCKET=...
+VITE_FIREBASE_MESSAGING_SENDER_ID=...
+VITE_FIREBASE_APP_ID=...
+VITE_FIREBASE_MEASUREMENT_ID=...
+```
 
-## How to Use
+### Scripts
 
-1. Drag and drop image files onto the dropzone or click to select files
-2. Select your desired output format
-3. Click "Convert" to transform your image
-4. Download the converted file
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Dev server |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | ESLint + Stylelint |
+| `npm run format` | Prettier |
+| `npm run typecheck` | `tsc --noEmit` |
 
-## Available Scripts
+## How to use
 
-### `npm run dev` or `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm run build`
-
-Builds the app for production to the `dist` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-### `npm run preview`
-
-Previews the built application locally before deployment.
-
-### `npm run lint`
-
-Runs ESLint to check for code quality issues.
-
-### `npm run lint:fix`
-
-Runs ESLint and attempts to automatically fix issues.
-
-### `npm run format`
-
-Formats your code using Prettier.
-
-### `npm run sort-package`
-
-Sorts the package.json file for consistency.
-
-## Live Demo
-
-Visit [flipsy.me](https://flipsy.me) to try the application online.
-
-## Technology Stack
-
-- **Frontend**: React, TypeScript
-- **Build Tool**: Vite
-- **Styling**: CSS
-- **Analytics**: Firebase Analytics (optional)
-- **Linting**: ESLint with Prettier integration
-- **Hosting**: Firebase
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a PR.
-
-### Code Style
-
-This project uses ESLint and Prettier to maintain code quality and consistency:
-
-- Run `npm run lint` to check for code issues
-- Run `npm run format` to format your code before committing
-- Run `npm run lint:fix` to automatically fix ESLint issues
-
-## Browser Support
-
-### Production
-- Last 2 versions of major browsers
-- Browsers with >1% market share
-- No support for IE 11
-
-### Development
-- Latest Chrome
-- Latest Firefox
-- Latest Safari
+1. Drop image files onto the dropzone, or click to pick them.
+2. Choose the output format.
+3. Convert, then download a single file or a zip for batches.
 
 ## License
 
-This project is licensed under the MIT License.
+MIT
